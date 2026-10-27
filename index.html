@@ -873,7 +873,7 @@ try{if('scrollRestoration' in history)history.scrollRestoration='manual';}catch(
     const leads=pauta/cpl,subs=Math.floor(leads*conv/100),cpa=subs?pauta/subs:0,roas=pauta?subs*PRICE*3/pauta:0,ltv=cpa?PRICE*life/cpa:0;
     $('r-leads').textContent=fmt(Math.round(leads));$('r-subs').textContent=fmt(subs);$('r-cpa').textContent='USD '+fmt(Math.round(cpa));$('r-roas').textContent=fmt(roas,1);$('r-ltv').textContent=fmt(ltv,1);
     const s=(el,ok,txt)=>{el.className='s '+(ok?'ok':'no');el.textContent=(ok?'Cumple: ':'No cumple: ')+txt;};
-    s($('r-cpa-s'),cpa<=80,'meta hasta USD 80');s($('r-roas-s'),roas>=1.5,'meta 1,5 o más');s($('r-ltv-s'),ltv>=3,'meta 3 o más · cada alumno deja '+fmt(ltv,1)+' veces lo que costó traerlo');
+    s($('r-cpa-s'),Math.round(cpa)<=80,'meta hasta USD 80');s($('r-roas-s'),Math.round(roas*10)/10>=1.5,'meta 1,5 o más');s($('r-ltv-s'),Math.round(ltv*10)/10>=3,'meta 3 o más · cada alumno deja '+fmt(ltv,1)+' veces lo que costó traerlo');
   }
   ['s-pauta','s-cpl','s-conv','s-life'].forEach(id=>$(id).addEventListener('input',()=>{calc();document.querySelectorAll('.out .v').forEach(v=>{v.classList.add('pulse');clearTimeout(v._t);v._t=setTimeout(()=>v.classList.remove('pulse'),350);});}));
   $('reset').onclick=()=>{$('s-pauta').value=base.pauta;$('s-cpl').value=base.cpl;$('s-conv').value=base.conv;$('s-life').value=base.life;calc();};
